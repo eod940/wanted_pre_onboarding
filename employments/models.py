@@ -17,10 +17,14 @@ class EmploymentsPost(models.Model):
                                                    verbose_name="채용보상금")
     employments_text = models.TextField(verbose_name="채용내용")
     employments_tech_to_use = models.CharField(max_length=100, verbose_name="사용기술")
+
     company_id = models.ForeignKey("Company", on_delete=models.CASCADE, related_name="company_id", db_column="company_id", verbose_name="회사")
 
     def __str__(self):
         return '{}'.format(self.employments_position)
+
+    def get_absolite_url(self):
+        return 'employments/{}'.format(self.pk)
 
     class Meta:
         verbose_name = "채용공고"
