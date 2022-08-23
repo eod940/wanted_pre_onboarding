@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/update/', views.EmploymentsPostUpdateView.as_view(), name='update'),
     path('create/', views.EmploymentsPostCreateView.as_view(), name='create'),
     path('<int:pk>/delete/', views.deleteEmploymentsPost, name='delete'),
+    path('search/<str:q>/', views.EmploymentsSearch.as_view(), name='search'),
 ]

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 
@@ -52,6 +53,14 @@ class EmploymentsPostCreateView(CreateView):
         return reverse('employments:detail', kwargs={'pk': self.object.pk})
 
 
+# 검색 클래스
+class EmploymentsSearch(EmploymentsPostListView):
+    def get_queryset(self):
+        q = self.kwargs['q']
+        object_list = EmploymentsPost.objects.filter(Q(employments_text=q))
+        return object_list
+
+
 def deleteEmploymentsPost(request, pk):
     if request.user.is_authenticated:
         employmentsPost = get_object_or_404(EmploymentsPost, id=pk)
@@ -62,5 +71,3 @@ def deleteEmploymentsPost(request, pk):
         else:
             messages.warning(request, "권한이 없습니다.")
             return redirect('employments:list')
-
-
