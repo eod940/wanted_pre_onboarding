@@ -44,8 +44,11 @@ User{
     
 ---
 
-## 2. 기능 구현
-### 2.1. 리스트뷰 구현하기
+## 2. 기능 구현 
+### 2.1.  모델링 하기
+- 위에서 설계한 ERD를 바탕으로 `Company`와 `EmoloymentsPost`의 [모델을 구현](https://github.com/eod940/wanted_pre_onboarding/blob/main/employments/models.py)하였습니다.
+
+### 2.2. 리스트뷰 구현하기
 - 사용자는 '주소/employments/'로 employments app의 기능을 이용할 수 있습니다. (채용공고: 리스트뷰, 디테일뷰, 검색, 삭제 등)
 ```python
 # mysite/urls.py
