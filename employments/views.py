@@ -13,6 +13,7 @@ class EmploymentsPostListView(ListView):
 
 class EmploymentsPostDetailView(DetailView):
     model = EmploymentsPost
+    # get_context_data를 이용해 같은 회사의 글을 가져온다.
 
 
 class EmploymentsPostUpdateView(UpdateView):
@@ -57,7 +58,7 @@ class EmploymentsPostCreateView(CreateView):
 class EmploymentsSearch(EmploymentsPostListView):
     def get_queryset(self):
         q = self.kwargs['q']
-        object_list = EmploymentsPost.objects.filter(Q(employments_text=q))
+        object_list = EmploymentsPost.objects.filter(Q(employments_text__contains=q) | Q(employments_position=q))
         return object_list
 
 

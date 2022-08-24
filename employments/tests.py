@@ -47,5 +47,6 @@ class TestView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         print(soup.body.text)
-        # self.assertIn(employmentsPost1, soup.body.text)
-        # self.assertNotIn(employmentsPost2, soup.body.text)
+        print(type(employmentsPost1))
+        self.assertIn(employmentsPost1.employments_text, soup.body.text)
+        self.assertNotIn(employmentsPost2.employments_text, soup.body.text)
