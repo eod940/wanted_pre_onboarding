@@ -44,12 +44,36 @@ User{
     
 ---
 
-## 2. 기능 구현 
+## 2. 기능 구현  
 ### 2.1.  모델링 하기
 - 위에서 설계한 ERD를 바탕으로 `Company`와 `EmoloymentsPost`의 [모델을 구현](https://github.com/eod940/wanted_pre_onboarding/blob/main/employments/models.py)하였습니다.
+- 사용자는 '주소/employments/{ any }'로 employments app에서 제공하는 CRUD룰 이용할 수 있습니다. 
+- 사용자는 메인화면을 리스트 뷰로 만나게 됩니다. 위에서 언급한 CRUD 기능은 [employments/urls.py](https://github.com/eod940/wanted_pre_onboarding/blob/main/employments/urls.py)에 명시되어 있는 방식으로 작동합니다.
+
+#### 2.1.1. IA(정보 구조도)
+- 사용자가 확인할 수 있는 정보의 구조는 아래 표와 같습니다.
+    - 사용자 --> 메인화면(ListView) --> 상세정보(DetailView) & 글쓰기(CreateView) & 검색
+    - 상세정보(DetailView) --> 글수정(UpdateView) & 글삭제
+
+```mermaid
+flowchart LR
+
+사용자 
+메인화면(ListView)
+상세정보(DetailView)
+글쓰기(CreateView)
+글수정(UpdateView)
+검색(ListView)
+글삭제
+
+사용자 --> 메인화면(ListView) --> 상세정보(DetailView) & 글쓰기(CreateView) & 검색
+상세정보(DetailView) --> 글수정(UpdateView) & 글삭제
+```
 
 ### 2.2. 리스트뷰 구현하기
-- 사용자는 '주소/employments/'로 employments app의 기능을 이용할 수 있습니다. (채용공고: 리스트뷰, 디테일뷰, 검색, 삭제 등)
+- 사용자는 회사가 올린 채용공고 목록을 곧바로 볼 수 있습니다.
+- 사용자의 요청 흐름에 따른 코드는 다음과 같습니다.
+
 ```python
 # mysite/urls.py
 urulpatterns = [
@@ -73,3 +97,4 @@ class EmploymentsPostListView(ListView):
 ```
 
 ![스크린샷1](./listView1.png)
+
