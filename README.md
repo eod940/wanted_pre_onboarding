@@ -72,11 +72,12 @@ flowchart LR
 
 ### 2.2. 리스트뷰 구현하기
 - 사용자는 회사가 올린 채용공고 목록을 곧바로 볼 수 있습니다.
+- 메인화면은 Django에서 제공하는 ListView를 이용하였습니다.
 - 사용자의 요청 흐름에 따른 코드는 다음과 같습니다.
 
 ```python
 # mysite/urls.py
-urulpatterns = [
+urlpatterns = [
     path('employments/', include('employments.urls')),
     ...
 ]
@@ -85,7 +86,7 @@ urulpatterns = [
 - 사용자는 회사가 올린 채용공고 목록을 곧바로 볼 수 있습니다. (리스트 뷰)
 ```python
 # employments/urls.py
-urulpatterns = [
+urlpatterns = [
     path('', views.EmploymentsPostListView.as_view()),
 ]
 ```
@@ -98,3 +99,29 @@ class EmploymentsPostListView(ListView):
 
 ![스크린샷1](./listView1.png)
 
+### 2.3. 채용공고 상세페이지 구현하기
+- 사용자는 메인화면(ListView)에서 게시글을 클릭하면 [상세페이지(DetailView)](https://github.com/eod940/wanted_pre_onboarding/blob/main/employments/views.py)를 볼 수 있습니다.
+- 상세페이지는 Django에서 제공하는 DetailView를 이용하였습니다.
+- 상세페이지 url은 EmploymentsPost 모델의 pk를 이용했습니다.
+- 사용자의 요청 흐름에 따른 코드는 다음과 같습니다.
+
+```html
+<!-- employmentspost_list.html -->
+...
+<button type="button" class="..."
+        onclick="location.href='{{ employment_post.pk }}'">읽으러 가기</button>
+...
+```
+
+```python
+# employments/urls.py
+urlpatterns = [
+    path('<int:pk>/', views.EmploymentsPostListView.as_view()),
+]
+```
+
+```python
+# views.py
+class EmploymentsPostDetailView(DetailView):
+    model = EmploymentsPost
+```
